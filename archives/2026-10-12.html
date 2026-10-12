@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 晨报 · 2026年10月12日 星期一</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1a2233; --ink-2:#5b6478; --ink-3:#8a92a6;
+    --line:#e6eaf1; --accent:#2f6bff; --accent-soft:#eaf0ff;
+    --chip-bg:#f0f3f8; --radius:14px;
+    --c-model:#7c5cff; --c-product:#0ea56d; --c-industry:#2f6bff; --c-paper:#d97706; --c-tips:#e0447c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6}
+  a{color:inherit}
+  .hero{background:linear-gradient(135deg,#eef3ff 0%,#f7f9ff 55%,#fdf3f7 100%);
+    border-bottom:1px solid var(--line);padding:44px 20px 36px}
+  .hero-inner{max-width:1080px;margin:0 auto}
+  .hero .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
+    color:var(--accent);background:var(--accent-soft);border:1px solid #d8e2ff;
+    padding:4px 14px;border-radius:999px;margin-bottom:16px}
+  .hero h1{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:.5px}
+  .hero .meta{margin-top:8px;color:var(--ink-2);font-size:14px}
+  .hero .meta b{color:var(--ink)}
+  .stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:10px 18px;min-width:118px;box-shadow:0 1px 3px rgba(20,30,60,.05)}
+  .stat .num{font-size:24px;font-weight:800;line-height:1.2}
+  .stat .lab{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+  .stat.total .num{color:var(--accent)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px}
+  .lead-card{margin-top:22px;background:var(--card);border:1px solid var(--line);
+    border-left:4px solid var(--accent);border-radius:12px;padding:16px 20px;
+    box-shadow:0 1px 4px rgba(20,30,60,.06)}
+  .lead-card .tag{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:2px}
+  .lead-card h2{font-size:17px;margin:6px 0 4px}
+  .lead-card p{font-size:14px;color:var(--ink-2)}
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1080px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:10px 20px}
+  .nav-inner a{flex:none;text-decoration:none;font-size:13.5px;font-weight:600;color:var(--ink-2);
+    padding:6px 14px;border-radius:999px;border:1px solid transparent;white-space:nowrap;transition:all .15s}
+  .nav-inner a:hover{color:var(--accent);background:var(--accent-soft)}
+  .nav-inner a.active{color:var(--accent);background:var(--accent-soft);border-color:#d8e2ff}
+  .nav-inner a .n{font-weight:800;margin-left:5px;font-size:12px;color:var(--ink-3)}
+  main{max-width:1080px;margin:0 auto;padding:32px 20px 24px}
+  section{margin-bottom:40px;scroll-margin-top:70px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  .sec-head h2{font-size:20px;font-weight:800}
+  .sec-head .rule{flex:1;height:1px;background:var(--line)}
+  .sec-desc{font-size:13px;color:var(--ink-3);margin-bottom:16px}
+  .sec-accent{border-left:4px solid var(--sc,var(--accent));padding-left:12px}
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px 14px;display:flex;flex-direction:column;gap:10px;
+    box-shadow:0 1px 3px rgba(20,30,60,.04);transition:transform .15s,box-shadow .15s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(20,30,60,.09)}
+  .card .top{display:flex;align-items:flex-start;gap:10px}
+  .idx{flex:none;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;
+    justify-content:center;font-size:13.5px;font-weight:800;color:#fff;background:var(--sc,var(--accent))}
+  .card h3{font-size:15.5px;font-weight:700;line-height:1.45}
+  .card h3 a{text-decoration:none}
+  .card h3 a:hover{color:var(--accent)}
+  .card .summary{font-size:13.5px;color:var(--ink-2);flex:1}
+  .card .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    border-top:1px dashed var(--line);padding-top:10px;margin-top:auto}
+  .chip{font-size:12px;color:var(--ink-2);background:var(--chip-bg);border:1px solid var(--line);
+    border-radius:999px;padding:2px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+  .card .more{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;white-space:nowrap}
+  .card .more:hover{text-decoration:underline}
+  .empty{background:var(--card);border:1px dashed #cdd5e3;border-radius:var(--radius);
+    padding:26px;text-align:center;color:var(--ink-3);font-size:14px}
+  footer{border-top:1px solid var(--line);background:var(--card);
+    padding:22px 20px 30px;text-align:center;color:var(--ink-3);font-size:13px}
+  footer a{color:var(--accent);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  @media (max-width:560px){
+    .grid{grid-template-columns:1fr}
+    .stat{min-width:calc(50% - 6px)}
+    .hero{padding:32px 16px 28px}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-inner">
+<span class="kicker">☀ AI HOT 晨报 · 每日精选</span>
+<h1>AI 晨报 · 2026年10月12日 星期一</h1>
+<p class="meta">共收录 <b>1</b> 条精选动态 · 统计窗口 10月11日 08:00 – 10月12日 08:00（北京时间）· 生成于 10月12日 08:00</p>
+
+<div class="stats"><div class="stat total"><div class="num">1</div><div class="lab">总条数</div></div><div class="stat"><div class="num" style="color:var(--c-model)">0</div><div class="lab"><span class="dot" style="background:var(--c-model)"></span>模型发布/更新</div></div><div class="stat"><div class="num" style="color:var(--c-product)">1</div><div class="lab"><span class="dot" style="background:var(--c-product)"></span>产品发布/更新</div></div><div class="stat"><div class="num" style="color:var(--c-industry)">0</div><div class="lab"><span class="dot" style="background:var(--c-industry)"></span>行业动态</div></div><div class="stat"><div class="num" style="color:var(--c-paper)">0</div><div class="lab"><span class="dot" style="background:var(--c-paper)"></span>论文研究</div></div><div class="stat"><div class="num" style="color:var(--c-tips)">0</div><div class="lab"><span class="dot" style="background:var(--c-tips)"></span>技巧与观点</div></div></div>
+<div class="lead-card"><span class="tag">今日头条</span>
+<h2><a href="https://aihot.news/items/z54sznsd0r2teb6gqyvwu4nc2" target="_blank" rel="noopener noreferrer" style="text-decoration:none">GPT-6.1 Sol 在 Codex 与 Work 中默认上下文长度提升至 500k</a></h2><p>Tibo 宣布 GPT-6.1 Sol 在 Codex 与 Work 中的默认上下文长度从 272k 提升到 500k，约增加 80%…</p></div>
+</div>
+</header>
+<nav><div class="nav-inner" id="nav"><a href="#sec-0"><span class="dot" style="background:var(--c-model)"></span>模型发布/更新<span class="n">0</span></a><a href="#sec-1"><span class="dot" style="background:var(--c-product)"></span>产品发布/更新<span class="n">1</span></a><a href="#sec-2"><span class="dot" style="background:var(--c-industry)"></span>行业动态<span class="n">0</span></a><a href="#sec-3"><span class="dot" style="background:var(--c-paper)"></span>论文研究<span class="n">0</span></a><a href="#sec-4"><span class="dot" style="background:var(--c-tips)"></span>技巧与观点<span class="n">0</span></a></div></nav>
+<main>
+<section id="sec-0" style="--sc:var(--c-model)">
+<div class="sec-head sec-accent"><h2>🧠 模型发布/更新</h2><div class="rule"></div></div>
+<p class="sec-desc">大模型与基础模型的发布与版本更新</p>
+<div class="empty">今日该版块暂无精选条目</div>
+</section><section id="sec-1" style="--sc:var(--c-product)">
+<div class="sec-head sec-accent"><h2>🚀 产品发布/更新</h2><div class="rule"></div></div>
+<p class="sec-desc">产品、工具与平台层面的新发布与功能更新</p>
+<div class="grid"><article class="card">
+<div class="top"><span class="idx">1</span>
+<h3><a href="https://aihot.news/items/z54sznsd0r2teb6gqyvwu4nc2" target="_blank" rel="noopener noreferrer">GPT-6.1 Sol 在 Codex 与 Work 中默认上下文长度提升至 500k</a></h3></div>
+<p class="summary">Tibo 宣布 GPT-6.1 Sol 在 Codex 与 Work 中的默认上下文长度从 272k 提升到…</p>
+<div class="foot"><span class="chip">X</span>
+<a class="more" href="https://x.com/thsottiaux/status/2109430343346581527" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article></div>
+</section><section id="sec-2" style="--sc:var(--c-industry)">
+<div class="sec-head sec-accent"><h2>📰 行业动态</h2><div class="rule"></div></div>
+<p class="sec-desc">融资、营收、政策与行业格局变化</p>
+<div class="empty">今日该版块暂无精选条目</div>
+</section><section id="sec-3" style="--sc:var(--c-paper)">
+<div class="sec-head sec-accent"><h2>📄 论文研究</h2><div class="rule"></div></div>
+<p class="sec-desc">论文、研究成果与前沿实验</p>
+<div class="empty">今日该版块暂无精选条目</div>
+</section><section id="sec-4" style="--sc:var(--c-tips)">
+<div class="sec-head sec-accent"><h2>💡 技巧与观点</h2><div class="rule"></div></div>
+<p class="sec-desc">实践技巧、工程经验与行业观点</p>
+<div class="empty">今日该版块暂无精选条目</div>
+</section>
+</main>
+<footer>
+<p>本日报共收录 <b>1</b> 条 · 数据来源：<a href="https://aihot.news/daily/2026-10-12" target="_blank" rel="noopener noreferrer">AI HOT 日报（2026-10-12）</a> · <a href="archives/2026-10-12.html">本期归档链接</a></p>
+<p style="margin-top:4px">各条目版权归原作者所有 · 生成时间：10月12日 08:00（北京时间）</p>
+</footer>
+<script>
+  (function(){
+    var links=document.querySelectorAll('#nav a');
+    var map={};
+    links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          if(map[e.target.id])map[e.target.id].classList.add('active');
+        }
+      });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    document.querySelectorAll('main section').forEach(function(s){io.observe(s);});
+  })();
+</script>
+</body>
+</html>
