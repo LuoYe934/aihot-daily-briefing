@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 晨报 · 2026年10月16日 星期五</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1a2233; --ink-2:#5b6478; --ink-3:#8a92a6;
+    --line:#e6eaf1; --accent:#2f6bff; --accent-soft:#eaf0ff;
+    --chip-bg:#f0f3f8; --radius:14px;
+    --c-model:#7c5cff; --c-product:#0ea56d; --c-industry:#2f6bff; --c-paper:#d97706; --c-tips:#e0447c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.6}
+  a{color:inherit}
+  .hero{background:linear-gradient(135deg,#eef3ff 0%,#f7f9ff 55%,#fdf3f7 100%);
+    border-bottom:1px solid var(--line);padding:44px 20px 36px}
+  .hero-inner{max-width:1080px;margin:0 auto}
+  .hero .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
+    color:var(--accent);background:var(--accent-soft);border:1px solid #d8e2ff;
+    padding:4px 14px;border-radius:999px;margin-bottom:16px}
+  .hero h1{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:.5px}
+  .hero .meta{margin-top:8px;color:var(--ink-2);font-size:14px}
+  .hero .meta b{color:var(--ink)}
+  .stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:10px 18px;min-width:118px;box-shadow:0 1px 3px rgba(20,30,60,.05)}
+  .stat .num{font-size:24px;font-weight:800;line-height:1.2}
+  .stat .lab{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+  .stat.total .num{color:var(--accent)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px}
+  .lead-card{margin-top:22px;background:var(--card);border:1px solid var(--line);
+    border-left:4px solid var(--accent);border-radius:12px;padding:16px 20px;
+    box-shadow:0 1px 4px rgba(20,30,60,.06)}
+  .lead-card .tag{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:2px}
+  .lead-card h2{font-size:17px;margin:6px 0 4px}
+  .lead-card p{font-size:14px;color:var(--ink-2)}
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1080px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding:10px 20px}
+  .nav-inner a{flex:none;text-decoration:none;font-size:13.5px;font-weight:600;color:var(--ink-2);
+    padding:6px 14px;border-radius:999px;border:1px solid transparent;white-space:nowrap;transition:all .15s}
+  .nav-inner a:hover{color:var(--accent);background:var(--accent-soft)}
+  .nav-inner a.active{color:var(--accent);background:var(--accent-soft);border-color:#d8e2ff}
+  .nav-inner a .n{font-weight:800;margin-left:5px;font-size:12px;color:var(--ink-3)}
+  main{max-width:1080px;margin:0 auto;padding:32px 20px 24px}
+  section{margin-bottom:40px;scroll-margin-top:70px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  .sec-head h2{font-size:20px;font-weight:800}
+  .sec-head .rule{flex:1;height:1px;background:var(--line)}
+  .sec-desc{font-size:13px;color:var(--ink-3);margin-bottom:16px}
+  .sec-accent{border-left:4px solid var(--sc,var(--accent));padding-left:12px}
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px 14px;display:flex;flex-direction:column;gap:10px;
+    box-shadow:0 1px 3px rgba(20,30,60,.04);transition:transform .15s,box-shadow .15s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(20,30,60,.09)}
+  .card .top{display:flex;align-items:flex-start;gap:10px}
+  .idx{flex:none;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;
+    justify-content:center;font-size:13.5px;font-weight:800;color:#fff;background:var(--sc,var(--accent))}
+  .card h3{font-size:15.5px;font-weight:700;line-height:1.45}
+  .card h3 a{text-decoration:none}
+  .card h3 a:hover{color:var(--accent)}
+  .card .summary{font-size:13.5px;color:var(--ink-2);flex:1}
+  .card .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    border-top:1px dashed var(--line);padding-top:10px;margin-top:auto}
+  .chip{font-size:12px;color:var(--ink-2);background:var(--chip-bg);border:1px solid var(--line);
+    border-radius:999px;padding:2px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+  .card .more{font-size:13px;font-weight:600;color:var(--accent);text-decoration:none;white-space:nowrap}
+  .card .more:hover{text-decoration:underline}
+  .empty{background:var(--card);border:1px dashed #cdd5e3;border-radius:var(--radius);
+    padding:26px;text-align:center;color:var(--ink-3);font-size:14px}
+  footer{border-top:1px solid var(--line);background:var(--card);
+    padding:22px 20px 30px;text-align:center;color:var(--ink-3);font-size:13px}
+  footer a{color:var(--accent);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  @media (max-width:560px){
+    .grid{grid-template-columns:1fr}
+    .stat{min-width:calc(50% - 6px)}
+    .hero{padding:32px 16px 28px}
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="hero-inner">
+<span class="kicker">☀ AI HOT 晨报 · 每日精选</span>
+<h1>AI 晨报 · 2026年10月16日 星期五</h1>
+<p class="meta">共收录 <b>12</b> 条精选动态 · 统计窗口 10月15日 08:00 – 10月16日 08:00（北京时间）· 生成于 10月16日 08:00</p>
+
+<div class="stats"><div class="stat total"><div class="num">12</div><div class="lab">总条数</div></div><div class="stat"><div class="num" style="color:var(--c-model)">4</div><div class="lab"><span class="dot" style="background:var(--c-model)"></span>模型发布/更新</div></div><div class="stat"><div class="num" style="color:var(--c-product)">3</div><div class="lab"><span class="dot" style="background:var(--c-product)"></span>产品发布/更新</div></div><div class="stat"><div class="num" style="color:var(--c-industry)">4</div><div class="lab"><span class="dot" style="background:var(--c-industry)"></span>行业动态</div></div><div class="stat"><div class="num" style="color:var(--c-paper)">0</div><div class="lab"><span class="dot" style="background:var(--c-paper)"></span>论文研究</div></div><div class="stat"><div class="num" style="color:var(--c-tips)">1</div><div class="lab"><span class="dot" style="background:var(--c-tips)"></span>技巧与观点</div></div></div>
+<div class="lead-card"><span class="tag">今日头条</span>
+<h2><a href="https://aihot.news/items/s80tw5g2v22j1se4bmqejyaq4" target="_blank" rel="noopener noreferrer" style="text-decoration:none">Meta 发布开源权重模型 Muse Spark Open，816B 参数、1M 上下文</a></h2><p>Meta 发布开源权重模型 Muse Spark Open，已在 Hugging Face 以 Muse Model License 提供…</p></div>
+</div>
+</header>
+<nav><div class="nav-inner" id="nav"><a href="#sec-0"><span class="dot" style="background:var(--c-model)"></span>模型发布/更新<span class="n">4</span></a><a href="#sec-1"><span class="dot" style="background:var(--c-product)"></span>产品发布/更新<span class="n">3</span></a><a href="#sec-2"><span class="dot" style="background:var(--c-industry)"></span>行业动态<span class="n">4</span></a><a href="#sec-3"><span class="dot" style="background:var(--c-paper)"></span>论文研究<span class="n">0</span></a><a href="#sec-4"><span class="dot" style="background:var(--c-tips)"></span>技巧与观点<span class="n">1</span></a></div></nav>
+<main>
+<section id="sec-0" style="--sc:var(--c-model)">
+<div class="sec-head sec-accent"><h2>🧠 模型发布/更新</h2><div class="rule"></div></div>
+<p class="sec-desc">大模型与基础模型的发布与版本更新</p>
+<div class="grid"><article class="card">
+<div class="top"><span class="idx">1</span>
+<h3><a href="https://aihot.news/items/s80tw5g2v22j1se4bmqejyaq4" target="_blank" rel="noopener noreferrer">Meta 发布开源权重模型 Muse Spark Open，816B 参数、1M 上下文</a></h3></div>
+<p class="summary">Meta 发布开源权重模型 Muse Spark Open，已在 Hugging Face 以 Muse Model…</p>
+<div class="foot"><span class="chip">PyTorch</span>
+<a class="more" href="https://pytorch.org/blog/muse-spark-open/" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article><article class="card">
+<div class="top"><span class="idx">2</span>
+<h3><a href="https://aihot.news/items/l9jgzg24ei3a7m8xu1xfhy9n7" target="_blank" rel="noopener noreferrer">NVIDIA 发布开源 Nemotron 3.5 Super VL 及 Bolt 两款端侧模型</a></h3></div>
+<p class="summary">NVIDIA 发布开源 1200 亿参数的 Nemotron 3.5 Super VL 多模态模型…</p>
+<div class="foot"><span class="chip">NVIDIA Blog（RSS）</span>
+<a class="more" href="https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article><article class="card">
+<div class="top"><span class="idx">3</span>
+<h3><a href="https://aihot.news/items/ybc0etkws56yxmrveyttxz3lm" target="_blank" rel="noopener noreferrer">Black Forest Labs 发布开源文生图模型 FLUX 3 Image Klein（5.6B）</a></h3></div>
+<p class="summary">Black Forest Labs 发布 5.6B 参数开源权重模型 FLUX 3 Image Klein…</p>
+<div class="foot"><span class="chip">Black Forest Labs</span>
+<a class="more" href="https://bfl.ai/blog/flux-3-image-klein" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article><article class="card">
+<div class="top"><span class="idx">4</span>
+<h3><a href="https://aihot.news/items/v0dw619te36yzweiqtuw7pjxs" target="_blank" rel="noopener noreferrer">阶跃星辰开放 Step 5 Preview 权重</a></h3></div>
+<p class="summary">阶跃星辰（StepFun）宣布 Step 5 Preview 开放权重…</p>
+<div class="foot"><span class="chip">X</span>
+<a class="more" href="https://x.com/StepFun_ai/status/2110717330657616092" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article></div>
+</section><section id="sec-1" style="--sc:var(--c-product)">
+<div class="sec-head sec-accent"><h2>🚀 产品发布/更新</h2><div class="rule"></div></div>
+<p class="sec-desc">产品、工具与平台层面的新发布与功能更新</p>
+<div class="grid"><article class="card">
+<div class="top"><span class="idx">5</span>
+<h3><a href="https://aihot.news/items/bme0mytjnlk0d2lk8hf7srzoh" target="_blank" rel="noopener noreferrer">ChatGPT 为 Chrome 用户新增标签页读取与控制能力</a></h3></div>
+<p class="summary">ChatGPT 官宣面向 Chrome 用户带来升级，把 computer use 能力引入 Chrome…</p>
+<div class="foot"><span class="chip">X</span>
+<a class="more" href="https://x.com/ChatGPT/status/2110823738531037651" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article><article class="card">
+<div class="top"><span class="idx">6</span>
+<h3><a href="https://aihot.news/items/uoqzntmcb5v0io1g6obac7amu" target="_blank" rel="noopener noreferrer">可灵 Kling 4.0 正式全量开放，新增 MCP 和 CLI 接入</a></h3></div>
+<p class="summary">可灵（Kling AI）宣布 Kling 4.0 正式全量开放，用户可通过 kling.ai 全新创作界面使用…</p>
+<div class="foot"><span class="chip">X</span>
+<a class="more" href="https://x.com/Kling_ai/status/2110747537187709424" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article><article class="card">
+<div class="top"><span class="idx">7</span>
+<h3><a href="https://aihot.news/items/ee1w5w87zh8hhwwwzqm8w65rd" target="_blank" rel="noopener noreferrer">Krea 3 图像模型通过 ComfyUI Partner Nodes 上线</a></h3></div>
+<p class="summary">Krea 3 图像模型现已在 ComfyUI 通过 Partner Nodes 提供，主打基于参考图的生成与编辑…</p>
+<div class="foot"><span class="chip">Comfy Blog</span>
+<a class="more" href="https://blog.comfy.org/p/krea-3-is-now-available-via-partner" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article></div>
+</section><section id="sec-2" style="--sc:var(--c-industry)">
+<div class="sec-head sec-accent"><h2>📰 行业动态</h2><div class="rule"></div></div>
+<p class="sec-desc">融资、营收、政策与行业格局变化</p>
+<div class="grid"><article class="card">
+<div class="top"><span class="idx">8</span>
+<h3><a href="https://aihot.news/items/allv4n9g9lhfy72m1pg725apv" target="_blank" rel="noopener noreferrer">Anthropic Q3营收达168亿美元但增速放缓，11月IPO前估值预期或下调</a></h3></div>
+<p class="summary">Anthropic在面向潜在投资者的会议上公布Q3营收168亿美元，环比增长约45%，但明显低于Q2超140%的增速…</p>
+<div class="foot"><span class="chip">The Decoder</span>
+<a class="more" href="https://the-decoder.com/anthropics-q3-revenue-hits-16-8b-but-growth-slows-ahead-of-planned-november-ipo/" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article><article class="card">
+<div class="top"><span class="idx">9</span>
+<h3><a href="https://aihot.news/items/v5sbitu4hw1bozz0nlopcl3t8" target="_blank" rel="noopener noreferrer">美国 8 州起诉 OpenAI，指控 ChatGPT 指导青少年自伤或伤害他人</a></h3></div>
+<p class="summary">当地时间 14 日，美国 8 个州的总检察长分别在州法院起诉 OpenAI…</p>
+<div class="foot"><span class="chip">IT之家·人工智能</span>
+<a class="more" href="https://www.ithome.com/1/013/160.htm" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article><article class="card">
+<div class="top"><span class="idx">10</span>
+<h3><a href="https://aihot.news/items/pd501xipe38ooxo1t7jn7hphn" target="_blank" rel="noopener noreferrer">The Verge 实测 Eiliko 机器人玩具：68000 台设备数据可被任意访问并可远程劫持</a></h3></div>
+<p class="summary">The Verge 记者与黑客 Sammy Azdoufal 实测发现…</p>
+<div class="foot"><span class="chip">The Verge</span>
+<a class="more" href="https://www.theverge.com/tech/1010727/eiliko-robot-hack-energize-lab" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article><article class="card">
+<div class="top"><span class="idx">11</span>
+<h3><a href="https://aihot.news/items/xl51s0hyyzi1krwrmown4hoqh" target="_blank" rel="noopener noreferrer">Anthropic 公布独立评估机制细节，METR 团队获类员工访问权限</a></h3></div>
+<p class="summary">Anthropic 宣布已向评估前沿 AI 模型的非营利机构 METR 的六名员工提供类员工访问权限…</p>
+<div class="foot"><span class="chip">Anthropic</span>
+<a class="more" href="https://www.anthropic.com/news/an-update-on-independent-evaluators" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article></div>
+</section><section id="sec-3" style="--sc:var(--c-paper)">
+<div class="sec-head sec-accent"><h2>📄 论文研究</h2><div class="rule"></div></div>
+<p class="sec-desc">论文、研究成果与前沿实验</p>
+<div class="empty">今日该版块暂无精选条目</div>
+</section><section id="sec-4" style="--sc:var(--c-tips)">
+<div class="sec-head sec-accent"><h2>💡 技巧与观点</h2><div class="rule"></div></div>
+<p class="sec-desc">实践技巧、工程经验与行业观点</p>
+<div class="grid"><article class="card">
+<div class="top"><span class="idx">12</span>
+<h3><a href="https://aihot.news/items/kg6bx3goagkn4k8kt7jl9lqgd" target="_blank" rel="noopener noreferrer">卡兹克实测开源Skill Anatomy，一句话让AI生成原理科普视频</a></h3></div>
+<p class="summary">作者卡兹克分享实测开源Skill Anatomy（GitHub…</p>
+<div class="foot"><span class="chip">X</span>
+<a class="more" href="https://x.com/Khazix0918/status/2110587546271191166" target="_blank" rel="noopener noreferrer">阅读原文 →</a></div>
+</article></div>
+</section>
+</main>
+<footer>
+<p>本日报共收录 <b>12</b> 条 · 数据来源：<a href="https://aihot.news/daily/2026-10-16" target="_blank" rel="noopener noreferrer">AI HOT 日报（2026-10-16）</a> · <a href="archives/2026-10-16.html">本期归档链接</a></p>
+<p style="margin-top:4px">各条目版权归原作者所有 · 生成时间：10月16日 08:00（北京时间）</p>
+</footer>
+<script>
+  (function(){
+    var links=document.querySelectorAll('#nav a');
+    var map={};
+    links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          if(map[e.target.id])map[e.target.id].classList.add('active');
+        }
+      });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    document.querySelectorAll('main section').forEach(function(s){io.observe(s);});
+  })();
+</script>
+</body>
+</html>
